@@ -8,22 +8,31 @@ BE SURE TO UPDATE THIS COMMENT WHEN YOU WRITE THE CODE.
 import random
 
 from WordleDictionary import FIVE_LETTER_WORDS
-from WordleGraphics import WordleGWindow, N_COLS, N_ROWS
+from WordleGraphics import WordleGWindow, N_COLS, N_ROWS, CORRECT_COLOR, PRESENT_COLOR, MISSING_COLOR
 
 def wordle():
 
     def enter_action(s):
         # initialize some variables
         current_col = 0
-        userword = ""
-        
+        userword = ""        
         # get the user input
         while current_col < N_COLS:
             userword += gw.get_square_letter(gw.get_current_row(), current_col)
             current_col += 1
 
-        userword = userword.lower()
+        print(newword)
+
+        for char in userword:
+            if char in newword:
+                gw.set_key_color(char, CORRECT_COLOR)
+            # elif char in newword:
+            #     gw.set_key_color(char, PRESENT_COLOR)
+            else:
+                gw.set_key_color(char, MISSING_COLOR)
+
         print(userword)
+        userword = userword.lower()
 
         # check if real word
         if userword in FIVE_LETTER_WORDS:
@@ -32,10 +41,10 @@ def wordle():
             gw.show_message("Not in word list")
         # insert msg if not real word
 
+    newword = random.choice(FIVE_LETTER_WORDS).upper()
+
     gw = WordleGWindow()
     gw.add_enter_listener(enter_action)
-
-    newword = random.choice(FIVE_LETTER_WORDS)
 
     col = 0
     while col < N_COLS:
