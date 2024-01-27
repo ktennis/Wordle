@@ -27,12 +27,13 @@ def wordle():
 
         print(newword)
         
-
-        for char in userword:
-            if char in newword:
+        # update key colors
+        for col in range(N_COLS):
+            char = userword[col]
+            if char == newword[col]:
                 gw.set_key_color(char, CORRECT_COLOR)
-            # elif char in newword:
-            #     gw.set_key_color(char, PRESENT_COLOR)
+            elif char in newword:
+                gw.set_key_color(char, PRESENT_COLOR)
             else:
                 gw.set_key_color(char, MISSING_COLOR)
                 

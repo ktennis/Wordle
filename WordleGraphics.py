@@ -100,7 +100,7 @@ class WordleGWindow:
                 ch = tke.upper()
             else:
                 ch = tke.char.upper()
-            if ch == "\007" or ch == "\177" or ch == "DELETE":
+            if ch == "\007" or ch == "\177" or ch == "DELETE" or ch == '\b' or ch=='\x7f':
                 self.show_message("")
                 if self._row < N_ROWS and self._col > 0:
                     self._col -= 1
@@ -113,6 +113,10 @@ class WordleGWindow:
                     s += self._grid[self._row][col].get_letter();
                 for fn in self._enter_listeners:
                     fn(s)
+            elif ch == '\t':
+                if self._row < N_ROWS:
+                    self._row += 1
+                    self._col = 0
             elif ch.isalpha():
                 self.show_message("")
                 if self._row < N_ROWS and self._col < N_COLS:
