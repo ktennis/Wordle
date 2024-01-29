@@ -15,8 +15,8 @@ import tkinter
 N_ROWS = 6			# Number of rows
 N_COLS = 5			# Number of columns
 
-CORRECT_COLOR = "#66BB66"       # Light green for correct letters
-PRESENT_COLOR = "#CCBB66"       # Brownish yellow for misplaced letters
+CORRECT_COLOR = "#224779"       # dark blue for correct letters
+PRESENT_COLOR = "#80ADE8"      # light blue for misplaced letters
 MISSING_COLOR = "#999999"       # Gray for letters that don't appear
 UNKNOWN_COLOR = "#FFFFFF"       # Undetermined letters are white
 KEY_COLOR = "#DDDDDD"           # Keys are colored light gray
@@ -100,7 +100,7 @@ class WordleGWindow:
                 ch = tke.upper()
             else:
                 ch = tke.char.upper()
-            if ch == "\007" or ch == "\177" or ch == "DELETE":
+            if ch == "\007" or ch == "\177" or ch == "DELETE" or ch == '\b' or ch=='\x7f':
                 self.show_message("")
                 if self._row < N_ROWS and self._col > 0:
                     self._col -= 1
@@ -113,6 +113,10 @@ class WordleGWindow:
                     s += self._grid[self._row][col].get_letter();
                 for fn in self._enter_listeners:
                     fn(s)
+            elif ch == '\t':
+                if self._row < N_ROWS:
+                    self._row += 1
+                    self._col = 0
             elif ch.isalpha():
                 self.show_message("")
                 if self._row < N_ROWS and self._col < N_COLS:
@@ -215,7 +219,7 @@ class WordleSquare:
         y1 = y0 + SQUARE_SIZE
         self._canvas = canvas
         self._ch = " "
-        self._color = UNKNOWN_COLOR;
+        self._color = UNKNOWN_COLOR
         self._frame = canvas.create_rectangle(x0, y0, x1, y1)
         self._text = canvas.create_text(x0 + SQUARE_SIZE / 2,
                                         y0 + SQUARE_SIZE / 2,
