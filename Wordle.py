@@ -29,7 +29,7 @@ def wordle():
         if userword in FIVE_LETTER_WORDS:
             gw.show_message("Completed Milestone 2!")
         else:
-            pass
+            gw.show_message("Not in word list")
         # insert msg if not real word
 
     gw = WordleGWindow()
