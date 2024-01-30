@@ -75,7 +75,7 @@ def wordle():
 
     col = 0
     while col < N_COLS:
-        gw.set_square_letter(gw.get_current_row(), col, newword[col])
+        gw.set_square_letter(gw.get_current_row(), col)
         col += 1
         
 

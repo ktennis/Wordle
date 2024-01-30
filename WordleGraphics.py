@@ -9,6 +9,8 @@ import atexit
 import math
 import time
 import tkinter
+from tkinter import *
+
 
 # Constants
 
@@ -16,7 +18,7 @@ N_ROWS = 6			# Number of rows
 N_COLS = 5			# Number of columns
 
 CORRECT_COLOR = "#224779"       # dark blue for correct letters
-PRESENT_COLOR = "#80ADE8"      # light blue for misplaced letters
+PRESENT_COLOR = "#80ADE8"     # light blue for misplaced letters 
 MISSING_COLOR = "#999999"       # Gray for letters that don't appear
 UNKNOWN_COLOR = "#FFFFFF"       # Undetermined letters are white
 KEY_COLOR = "#DDDDDD"           # Keys are colored light gray
@@ -57,6 +59,45 @@ BOARD_WIDTH = N_COLS * SQUARE_SIZE + (N_COLS - 1) * SQUARE_SEP
 BOARD_HEIGHT = N_ROWS * SQUARE_SIZE + (N_ROWS - 1) * SQUARE_SEP
 MESSAGE_X = CANVAS_WIDTH / 2
 MESSAGE_Y = TOP_MARGIN + BOARD_HEIGHT + MESSAGE_SEP
+
+# toggle switch
+
+cbm = Tk()
+cbm.title('Colorblind Mode')
+cbm.geometry("500x300")
+is_on = True
+my_label = Label(cbm,
+    text = "Colorblind Mode is On",
+    fg = "green",
+    font = ("Helvetica Neue", 32))
+my_label.pack(pady=20)
+
+# switch function
+
+def switch():
+    global is_on,CORRECT_COLOR,PRESENT_COLOR
+    
+    if is_on:
+        on_button.config(image = off)
+        my_label.config(text = "Colorblind Mode is Off", fg = "grey")
+        is_on = False
+        CORRECT_COLOR = "#66BB66"
+        PRESENT_COLOR = "#CCBB66"
+    else:
+        on_button.config(image = on)
+        my_label.config(text = "Colorblind Mode is On", fg = "green")
+        is_on = True
+        CORRECT_COLOR = "#224779"
+        PRESENT_COLOR = "#80ADE8"
+
+on = PhotoImage(file = "on.png")
+off = PhotoImage(file = "off.png")
+
+on_button = Button(cbm, image = on, bd = 0, command = switch)
+on_button.pack(pady = 50)
+ 
+cbm.mainloop()
+        
 
 class WordleGWindow:
     """This class creates the Wordle window."""
