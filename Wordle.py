@@ -24,8 +24,6 @@ def wordle():
         while current_col < N_COLS:
             userword += gw.get_square_letter(gw.get_current_row(), current_col)
             current_col += 1
-
-        print(newword)
         
         # update key colors
         for col in range(N_COLS):
@@ -54,7 +52,7 @@ def wordle():
 
         # check if real word
         if userword in FIVE_LETTER_WORDS:
-            gw.show_message("Completed Milestone 2!")
+            gw.show_message("Try Again!")
         else:
             gw.show_message("Not in word list")
             
